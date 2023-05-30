@@ -1,4 +1,9 @@
 package commands.abstr;
 
-public class InvocationStatus {
+/**
+ * Режим, с которым должна быть запущена команда.
+ */
+public enum InvocationStatus {
+    CLIENT,
+    SERVER
 }

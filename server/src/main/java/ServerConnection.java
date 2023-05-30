@@ -1,5 +1,3 @@
-package org.example;
-
 import java.net.DatagramSocket;
 import java.net.SocketException;
 import org.apache.logging.log4j.LogManager;
@@ -41,5 +39,4 @@ public class ServerConnection {
     public DatagramSocket getServerSocket() {
         return serverSocket;
     }
-
 }

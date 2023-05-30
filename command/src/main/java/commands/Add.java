@@ -1,2 +1,4 @@
-package commands;public class Add {
+package commands;
+
+public class Add {
 }

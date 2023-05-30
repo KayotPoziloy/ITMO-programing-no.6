@@ -1,7 +1,7 @@
-package org.example;
-
+import commands.abstr.CommandContainer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -31,8 +31,7 @@ public class RequestReader {
     private int senderPort;
 
     private final DatagramPacket dp;
-
-//    private CommandContainer commandContainer;
+    private CommandContainer commandContainer;
 
     /**
      * Конструктор класса
@@ -57,6 +56,13 @@ public class RequestReader {
         var objectInputStream = new ObjectInputStream(byteArrayInputStream);
 
         rootLogger.info("Получен пакет с командой от " + senderAddress.getHostAddress() + " " + senderPort);
+
+        commandContainer = (CommandContainer) objectInputStream.readObject();
+        rootLogger.info("Контейнер с командой получен");
+    }
+
+    public CommandContainer getCommandContainer() {
+        return commandContainer;
     }
 
     public InetAddress getSenderAddress() {

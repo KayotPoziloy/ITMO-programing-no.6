@@ -1,0 +1,34 @@
+[
+  {
+    "name": "John",
+    "coordinates": {
+      "x": 25.0,
+      "y": 123
+    },
+    "realHero": true,
+    "hasToothpick": null,
+    "impactSpeed": 100,
+    "soundtrackName": "The Soundtrack",
+    "minutesOfWaiting": null,
+    "weaponType": "MACHINE_GUN",
+    "car": {
+      "cool": true
+    }
+  },
+  {
+    "name": "Alice",
+    "coordinates": {
+      "x": 500.5,
+      "y": 300
+    },
+    "realHero": false,
+    "hasToothpick": false,
+    "impactSpeed": 50,
+    "soundtrackName": "The Best Soundtrack",
+    "minutesOfWaiting": 5.5,
+    "weaponType": "RIFLE",
+    "car": {
+      "cool": false
+    }
+  }
+]
