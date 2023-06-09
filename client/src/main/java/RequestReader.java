@@ -6,16 +6,29 @@ import java.net.SocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.DatagramChannel;
 
+/**
+ * Класс для чтения запросов от сервера
+ */
 public class RequestReader {
 
     private final DatagramChannel clientChannel;
 
     private static final Logger rootLogger = LogManager.getRootLogger();
 
+    /**
+     * Конструктор класса
+     * @param clientChannel канал клиента для чтения запросов
+     */
     public RequestReader(DatagramChannel clientChannel) {
         this.clientChannel = clientChannel;
     }
 
+    /**
+     * Читает буфер с данными, полученными от сервера
+     * @return ByteBuffer с данными от сервера.
+     * @throws IOException          если возникает ошибка при чтении из канала
+     * @throws InterruptedException если потом был прерван во время ожидания
+     */
     public ByteBuffer receiveBuffer() throws IOException, InterruptedException {
 
         ByteBuffer byteBuffer = ByteBuffer.allocate(4096);

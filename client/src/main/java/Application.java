@@ -17,20 +17,26 @@ import java.util.NoSuchElementException;
  * Класс, через который производится запуск данного приложения.
  */
 public class Application {
-
+    /**
+     * Корневой логгер для записи логов
+     */
     private static final Logger rootLogger = LogManager.getRootLogger();
     /**
      * Хранит ссылку на объект, производящий чтение и вывод команд
      */
     User user;
-
     /**
-     * Метод, выполняющий запуск программы. Через него происходит работа всей программы.
+     * Объект, управляющий выполнением команд
      */
     CommandManager commandManager;
 
     private final int port;
 
+    /**
+     * Конструктор класса Application
+     *
+     * @param port порт для подключения
+     */
     public Application(Integer port) {
         this.port = port;
 
@@ -40,11 +46,15 @@ public class Application {
 
     }
 
+    /**
+     * Метод, выполняющий запуск программы и управляющий её работой.
+     */
     public void start() {
 
         try {
             InetSocketAddress inetSocketAddress = new InetSocketAddress("localhost", port);
 
+            // Создание объектов для работы с клиентским подключением
             ClientConnection clientConnection = new ClientConnection();
             clientConnection.connect(inetSocketAddress);
             ResponseSender responseSender = new ResponseSender(clientConnection.getClientChannel());
@@ -67,10 +77,11 @@ public class Application {
                 }
                 try {
                     if (isCommandAcceptable) {
-
+                        // Отправка команды на сервер
                         responseSender.sendContainer(commandManager.getLastCommandContainer(), inetSocketAddress);
-
                         rootLogger.info("Данные были отправлены.");
+
+                        // Получение ответа от сервера
                         ByteBuffer byteBuffer = requestReader.receiveBuffer();
                         byteBuffer.flip();
                         rootLogger.info("Данные были получены.");
