@@ -88,7 +88,7 @@ public class ExecuteScriptCommand extends Command {
                 InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
                 Scanner scanner = new Scanner(inputStreamReader);
                 user = new User(scanner);
-                CommandManager commandInvoker = new CommandManager(user, humanBeingReader, script);
+                CommandManager commandManager = new CommandManager(user, humanBeingReader, script);
 
                 super.result.add(scriptPath);//добавлен адрес, из которого была исполнена команда execute_script
 
@@ -99,8 +99,8 @@ public class ExecuteScriptCommand extends Command {
                 }));
 
                 while (scanner.hasNext()) {
-                    if (commandInvoker.executeClient(scanner.nextLine(), nullStream)) {
-                        super.result.add(commandInvoker.getLastCommandContainer());
+                    if (commandManager.executeClient(scanner.nextLine(), nullStream)) {
+                        super.result.add(commandManager.getLastCommandContainer());
                     }
                 }
                 script.removeScript(scriptPath);

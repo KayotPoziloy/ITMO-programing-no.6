@@ -39,15 +39,17 @@ public class ResponseSender {
         byte[] byteUDP = new byte[4096];
 
         DatagramPacket dp = new DatagramPacket(byteUDP, byteUDP.length, receiverAddress, receiverPort);
-
+        // преобразование строки в байтовый массив
         byte[] byteArr = string.getBytes(StandardCharsets.UTF_8);
 
         if (byteArr.length > 4096) {
             rootLogger.warn("Размер пакета превышен");
             return;
         } else {
+            // копирование данных из одного байтового массива в другой
             System.arraycopy(byteArr, 0, byteUDP, 0, byteArr.length);
         }
+        // отправка пакета dp
         serverSocket.send(dp);
     }
 }

@@ -1,9 +1,11 @@
 package collection;
 
+import java.io.Serializable;
+
 /**
  * Класс - координаты объекта HumanBeing
  */
-public class Coordinates {
+public class Coordinates implements Serializable {
     /**
      * Параметры x и y
      * x: Максимальное значение поля: 808
@@ -61,7 +63,7 @@ public class Coordinates {
     @Override
     public String toString() {
         try {
-            return "координаты X и Y = " + getX() + ", " + getY();
+            return "X и Y = " + getX() + ", " + getY();
         } catch (NullPointerException e) {
             return "координаты не введены, либо не подходят под условие (X больше 808, Y больше 428)";
         }

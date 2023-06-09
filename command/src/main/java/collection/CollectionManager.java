@@ -36,17 +36,17 @@ public class CollectionManager {
     /**
      * Метод, который выводит информацию об элементах коллекции
      */
-    public List<HumanBeing> show() {
+    public String show() {
         List<HumanBeing> humanBeings = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
         if (humanBeingArrayDeque.isEmpty()) {
-            System.out.println("В коллекции нет элементов");
-            return null;
+            sb.append("Коллекция пуста");
         } else {
             for (HumanBeing human : humanBeingArrayDeque) {
-                humanBeings.add(human);
+                sb.append(human);
             }
         }
-        return humanBeings;
+        return sb.toString();
     }
 
     /**

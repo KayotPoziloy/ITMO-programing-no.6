@@ -16,12 +16,13 @@ public class ServerConnection {
      * Предоставляет сокет сервера для обмена данными
      */
     private DatagramSocket serverSocket;
-
+    Integer port;
     /**
      * @param port по этому порту создает DatagramSocket
      * @return если создание сокета прошло успешно, возвращает true иначе false и выход
      */
     public boolean createFromPort(Integer port) {
+        this.port = port;
         try {
             serverSocket = new DatagramSocket(port);
             rootLogger.info("Сервер готов");
@@ -38,5 +39,9 @@ public class ServerConnection {
      */
     public DatagramSocket getServerSocket() {
         return serverSocket;
+    }
+
+    public Integer getServerPort() {
+        return port;
     }
 }

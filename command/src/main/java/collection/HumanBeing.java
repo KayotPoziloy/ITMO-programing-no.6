@@ -1,11 +1,12 @@
 package collection;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Класс, представляющий сущность человека
  */
-public class HumanBeing {
+public class HumanBeing implements Serializable {
     /**
      * Уникальный id объекта.
      * Значение поля должно быть больше 0,
@@ -295,7 +296,7 @@ public class HumanBeing {
      */
     @Override
     public String toString() {
-        return "=============\n" +
+        return "\n=============\n" +
                 "id:\n " + id +
                 ",\nname: \n " + name  +
                 ",\ncoordinates: \n " + coordinates +
@@ -308,6 +309,4 @@ public class HumanBeing {
                 ",\nweaponType: \n " + weaponType +
                 ",\ncar: \n " + car;
     }
-
-
 }

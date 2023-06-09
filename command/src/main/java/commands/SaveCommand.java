@@ -5,7 +5,9 @@ import commands.abstr.Command;
 import commands.abstr.InvocationStatus;
 import exceptions.CannotExecuteCommandException;
 
+import javax.print.attribute.standard.Severity;
 import java.io.PrintStream;
+import java.rmi.server.ServerNotActiveException;
 
 public class SaveCommand extends Command {
 //    /**

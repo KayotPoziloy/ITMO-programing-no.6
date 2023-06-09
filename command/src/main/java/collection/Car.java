@@ -1,9 +1,11 @@
 package collection;
 
+import java.io.Serializable;
+
 /**
  * Класс автомобиля объекта HumanBeing
  */
-public class Car {
+public class Car implements Serializable {
     /**
      * Крутость автомобиль
      */

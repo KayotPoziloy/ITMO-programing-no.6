@@ -13,6 +13,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.net.InetSocketAddress;
+import java.nio.channels.SelectionKey;
+import java.nio.channels.Selector;
+import java.nio.channels.ServerSocketChannel;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -29,6 +33,10 @@ public class Application {
      * Корневой логгер для записи логов
      */
     private static final Logger rootLogger = LogManager.getRootLogger();
+
+    /**
+     * Конструктор класса
+     */
     Application() {
         collectionManager = new CollectionManager();
         fileManager = new FileManager();
@@ -40,6 +48,7 @@ public class Application {
 
         try {
             File ioFile = new File(envVariable);
+            // Проверка файла на доступность для чтения
             if (!ioFile.canWrite() || ioFile.isDirectory() || !ioFile.isFile()) throw new IOException();
 
             HumanBeing[] humanBeings = fileManager.parseToCollection(envVariable);
@@ -56,10 +65,11 @@ public class Application {
 
             Scanner scanner = new Scanner(System.in);
 
+            // Установка порта для серверного соединения
             do {
                 System.out.print("Введите порт: ");
                 int port = scanner.nextInt();
-                if (port <= 0) {
+                if (port <= 0 || port > 65535) {
                     rootLogger.error("Введенный порт невалиден.");
                 } else {
                     isConnected = serverConnection.createFromPort(port);
@@ -70,6 +80,8 @@ public class Application {
             rootLogger.error("Аварийное завершение работы");
             System.exit(-1);
         }
+
+        // Вызов cycle() для запуска обработки команд и взаимодействия с клиентами
         try {
             cycle(commandManager);
         } catch (NoSuchElementException | InterruptedException e) {
@@ -78,21 +90,44 @@ public class Application {
         }
     }
 
-    private void cycle(CommandManager commandManager) throws InterruptedException {
-        RequestReader requestReader = new RequestReader(serverConnection.getServerSocket());
-        ResponseSender responseSender = new ResponseSender(serverConnection.getServerSocket());
-        CommandProcessor commandProcessor = new CommandProcessor(commandManager);
+    /**
+     * Создается объект Selector.
+     * Создается ServerSocketChannel и устанавливается порт с помощью serverConnection.getServerPort().
+     * Канал работает в неблокирующем режиме.
+     */
+    private Selector selector;
+    private void setupSelector() throws IOException {
+        selector = Selector.open();
+        ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
+        serverSocketChannel.socket().bind(new InetSocketAddress(serverConnection.getServerPort()));
+        serverSocketChannel.configureBlocking(false);
+//        int ops = serverSocketChannel.validOps();
+//        SelectionKey selectionKey = serverSocketChannel.register(selector, ops, null);
+    }
+
+    /**
+     * Метод, обрабатывающий команды и взаимодействующий с клиентом
+     * @param commandManager
+     * @throws InterruptedException
+     * @throws IOException
+     */
+    private void cycle(CommandManager commandManager) throws InterruptedException, IOException {
+        setupSelector();
         while (isConnected) {
             try {
+                // чтение команды от клиента
+                RequestReader requestReader = new RequestReader(serverConnection.getServerSocket());
                 requestReader.readCommand();
                 CommandContainer command = requestReader.getCommandContainer();
 
+                // обработка команды
+                CommandProcessor commandProcessor = new CommandProcessor(commandManager);
                 var byteArrayOutputStream = new ByteArrayOutputStream();
                 var printStream = new PrintStream(byteArrayOutputStream);
-
                 commandProcessor.executeCommand(command, printStream);
 
-                Thread.sleep(1000);
+                // отправка ответа клиенту
+                ResponseSender responseSender = new ResponseSender(serverConnection.getServerSocket());
                 responseSender.send(
                         byteArrayOutputStream.toString(),
                         requestReader.getSenderAddress(),
@@ -105,9 +140,11 @@ public class Application {
                 rootLogger.error("Неизвестная ошибка " + e);
             }
         }
-
     }
 
+    /**
+     * @return CollectionManager, отвечающий за управление коллекцией
+     */
     public CollectionManager getCollectionManager() {
         return collectionManager;
     }

@@ -31,13 +31,12 @@ public class HumanBeingReader {
     /**
      * Метод, читающий данные из консоли.
      * Ввод полей происходит в строго определенном порядке
-     * @param id - уникальный идентификатор объекта HumanBeing
      * @return возвращает объект типа HumanBeing
      */
-    public HumanBeing read(Integer id) {
+    public HumanBeing read() {
         Instant time = Instant.now();
         return new HumanBeing(
-                id,
+                setId(),
                 readName(),
                 readCoordinates(),
                 Date.from(time),

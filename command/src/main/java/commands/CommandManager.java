@@ -136,6 +136,10 @@ public class CommandManager {
         clientCommands.put("clear", new ClearCommand());
         clientCommands.put("exit", new ExitCommand());
         clientCommands.put("help", new HelpCommand(clientCommands));
+        clientCommands.put("add", new AddCommand(humanBeingReader));
+        clientCommands.put("remove_by_id", new RemoveByIdCommand());
+        clientCommands.put("remove_lower", new RemoveLowerCommand());
+        clientCommands.put("update_by_id", new UpdateIDCommand());
 
         clientCommands.put("execute_script", new ExecuteScriptCommand(user, humanBeingReader, script));
     }
@@ -149,6 +153,10 @@ public class CommandManager {
         serverCommands.put("clear", new ClearCommand(collectionManager));//y
         serverCommands.put("save", new SaveCommand(collectionManager));//y
         serverCommands.put("help", new HelpCommand(serverCommands));//y
+        serverCommands.put("add", new AddCommand(collectionManager, humanBeingReader));
+        serverCommands.put("remove_by_id", new RemoveByIdCommand(collectionManager));
+        serverCommands.put("remove_lower", new RemoveLowerCommand(collectionManager));
+        serverCommands.put("update_by_id", new UpdateIDCommand(collectionManager, humanBeingReader));
 
         serverCommands.put("execute_script", new ExecuteScriptCommand(collectionManager));
     }

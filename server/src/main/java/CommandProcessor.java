@@ -5,6 +5,9 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.PrintStream;
 
+/**
+ * Передает команду в CommandManager для выполнения команды
+ */
 public class CommandProcessor {
 
     private final CommandManager commandManager;
@@ -14,10 +17,19 @@ public class CommandProcessor {
      */
     private static final Logger rootLogger = LogManager.getRootLogger();
 
+    /**
+     * Конструктор класса
+     * @param commandManager менеджер команд
+     */
     public CommandProcessor(CommandManager commandManager) {
         this.commandManager = commandManager;
     }
 
+    /**
+     * Выполняет команду и записывает результат выполнения в указанный PrintStream
+     * @param command     контейнер команды
+     * @param printStream вывод результатов команды
+     */
     public void executeCommand(CommandContainer command, PrintStream printStream) {
 
         if (commandManager.executeServer(command.getName(), command.getResult(), printStream)) {
