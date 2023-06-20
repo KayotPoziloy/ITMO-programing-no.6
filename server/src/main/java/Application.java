@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.InetSocketAddress;
+import java.nio.channels.DatagramChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
@@ -98,11 +99,9 @@ public class Application {
     private Selector selector;
     private void setupSelector() throws IOException {
         selector = Selector.open();
-        ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
-        serverSocketChannel.socket().bind(new InetSocketAddress(serverConnection.getServerPort()));
-        serverSocketChannel.configureBlocking(false);
-//        int ops = serverSocketChannel.validOps();
-//        SelectionKey selectionKey = serverSocketChannel.register(selector, ops, null);
+        DatagramChannel datagramChannel = DatagramChannel.open();
+        datagramChannel.socket().bind(new InetSocketAddress(serverConnection.getServerPort()));
+        datagramChannel.configureBlocking(false);
     }
 
     /**
