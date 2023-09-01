@@ -13,11 +13,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.net.InetSocketAddress;
 import java.nio.channels.DatagramChannel;
-import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
-import java.nio.channels.ServerSocketChannel;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -93,14 +90,12 @@ public class Application {
 
     /**
      * Создается объект Selector.
-     * Создается ServerSocketChannel и устанавливается порт с помощью serverConnection.getServerPort().
      * Канал работает в неблокирующем режиме.
      */
     private Selector selector;
     private void setupSelector() throws IOException {
         selector = Selector.open();
         DatagramChannel datagramChannel = DatagramChannel.open();
-        datagramChannel.socket().bind(new InetSocketAddress(serverConnection.getServerPort()));
         datagramChannel.configureBlocking(false);
     }
 

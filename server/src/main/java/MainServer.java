@@ -3,6 +3,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.net.BindException;
 
 
 /**
@@ -41,6 +42,8 @@ public class MainServer {
                 ));
                 try {
                     application.start(args[0]);
+                } catch (BindException e) {
+                    rootLogger.warn("данный порт занят " + e);
                 } catch (Exception e) {
                     rootLogger.warn("По указанному адресу нет подходящего файла " + args[0]);
                 }
@@ -50,8 +53,10 @@ public class MainServer {
             String envVariable = System.getenv("Lab5");
             try {
                 application.start(envVariable);
+            } catch (BindException e) {
+                rootLogger.warn("данный порт занят " + e);
             } catch (IOException | ParserConfigurationException e) {
-                rootLogger.warn("По указанному адресу нет подходящего файла " + envVariable);
+                rootLogger.warn(e + " По указанному адресу нет подходящего файла " + envVariable);
             } catch (Exception e) {
                 rootLogger.error("Неизвестная ошибка" + e);
             }

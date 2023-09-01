@@ -77,6 +77,6 @@ public abstract class Command {
 
     @Override
     public String toString() {
-        return "Uмя :" + getName() + "\nСодержимое на исполнение серверу: " + result.stream().toString();
+        return "Имя :" + getName() + "\nСодержимое на исполнение серверу: " + result.stream().toString();
     }
 }

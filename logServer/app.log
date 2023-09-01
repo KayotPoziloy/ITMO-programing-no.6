@@ -1,12 +1,10 @@
-13:56:41.463 [main] INFO   - Конструктор класса Application был загружен.
-13:56:41.485 [main] INFO   - Клиент готов к чтению команд.
-13:56:46.051 [main] INFO   - Конструктор класса Application загружен
-13:56:46.081 [main] INFO   - Элементы коллекций из файла C:\Users\yakho\OneDrive\Рабочий стол\учеба\программирование2022\prog5\src\main\java\org\example\FileWork\test.json были загружены.
-13:56:49.045 [main] INFO   - Сервер готов
-13:56:49.045 [main] INFO   - Порт установлен.
-13:56:53.737 [main] WARN   - Команда не была исполнена
-13:57:22.653 [main] WARN   - Команда не была исполнена
-14:30:33.691 [main] ERROR  - Значение порта должно быть целочисленным.
- Введенное значение:  5000
-14:31:27.814 [main] INFO   - Конструктор класса Application был загружен.
-14:31:27.827 [main] INFO   - Клиент готов к чтению команд.
+12:19:58.811 [main] INFO   - Конструктор класса Application загружен
+12:19:58.856 [main] INFO   - Элементы коллекций из файла C:\Users\yakho\OneDrive\Рабочий стол\учеба\программирование2022\prog5\src\main\java\org\example\FileWork\test.json были загружены.
+13:36:56.898 [main] INFO   - Конструктор класса Application загружен
+13:36:56.917 [main] INFO   - Элементы коллекций из файла C:\Users\yakho\OneDrive\Рабочий стол\учеба\программирование2022\prog5\src\main\java\org\example\FileWork\test.json были загружены.
+13:36:58.563 [main] INFO   - Сервер готов
+13:36:58.564 [main] INFO   - Порт установлен.
+13:37:09.517 [main] INFO   - Конструктор класса Application загружен
+13:37:09.536 [main] INFO   - Элементы коллекций из файла C:\Users\yakho\OneDrive\Рабочий стол\учеба\программирование2022\prog5\src\main\java\org\example\FileWork\test.json были загружены.
+13:37:12.324 [main] INFO   - Сервер готов
+13:37:12.324 [main] INFO   - Порт установлен.

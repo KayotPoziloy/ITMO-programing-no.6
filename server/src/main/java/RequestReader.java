@@ -30,7 +30,7 @@ public class RequestReader {
     private InetAddress senderAddress;
     private int senderPort;
 
-    DatagramPacket dp;
+    private final DatagramPacket dp;
     private CommandContainer commandContainer;
 
     /**
